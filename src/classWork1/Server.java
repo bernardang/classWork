@@ -22,6 +22,8 @@ public class Server {
 	private boolean keepGoing;
 	//chat.txt
 		private static final String FILENAME = "C:\\Users\\the_r\\Desktop\\chat2.txt";
+	//messagecount
+		private int mcount;
 	
 
 	/*
@@ -126,10 +128,12 @@ public class Server {
 			System.out.print(messageLf);
 		else
 			sg.appendRoom(messageLf);     // append in the room window
-		Append (time+" "+message );
+		//Append message to the chat history
+		mcount++;
+		Append ("("+mcount+")"+time+" "+message );
 		
-		// we loop in reverse order in case we would have to remove a Client
-		// because it has disconnected
+		
+	
 		for(int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the list

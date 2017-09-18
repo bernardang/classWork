@@ -21,7 +21,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 	// to hold the server address an the port number
 	private JTextField tfServer, tfPort;
 	// to Logout and get the list of the users
-	private JButton login, logout, whoIsIn ,picture;
+	private JButton login, logout, whoIsIn ,picture,delete;
 	// for the chat room
 	private JTextArea ta;
 	// if it is for connection
@@ -31,7 +31,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 	// the default port number
 	private int defaultPort;
 	private String defaultHost;
-	
+	private  String User;
 	
 	File salida;
 	ObjectInputStream entrada;
@@ -98,14 +98,20 @@ public class ClientGUI extends JFrame implements ActionListener {
 		whoIsIn.addActionListener(this);
 		whoIsIn.setEnabled(false);		// you have to login before being able to Who is in
 		picture = new JButton("Send Picture");
+		delete = new JButton("Delete chat");
+		delete.setEnabled(false);
 		picture.addActionListener(this);
 		picture.setEnabled(false);
+		if (User == "admin"){
+			delete.setEnabled(true);
+		}
 
 		JPanel southPanel = new JPanel();
 		southPanel.add(login);
 		southPanel.add(logout);
 		southPanel.add(whoIsIn);
 		southPanel.add(picture);
+		southPanel.add(delete);
 		add(southPanel, BorderLayout.SOUTH);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -199,8 +205,11 @@ public class ClientGUI extends JFrame implements ActionListener {
 		if(o == login) {
 	
 			String username = tf.getText().trim();
-			if(username.length() == 0)
+			if(username.length() == 0){
 				return;
+			}
+			User = username;
+				
 			String server = tfServer.getText().trim();
 			if(server.length() == 0)
 				return;
