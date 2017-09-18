@@ -7,13 +7,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-
+import java.io.*;
 /*
  * The Client with its GUI
  */
@@ -38,11 +32,14 @@ public class ClientGUI extends JFrame implements ActionListener {
 	private int defaultPort;
 	private String defaultHost;
 	
+	
 	File salida;
 	ObjectInputStream entrada;
 
 	//FileChooser 
 	JFileChooser fc = new JFileChooser();
+	//chat.txt
+	
 	
 	
 	
@@ -182,7 +179,8 @@ public class ClientGUI extends JFrame implements ActionListener {
 			
 			//client.sendImage(new ImageMessage(ImageMessage.IMAGE,img));
 			//Sending the name of the image
-			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE,salida.getName()));
+			String ime = salida.getName();
+			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE,ime));
 			tf.setText("");
 			return;
 		}
@@ -190,8 +188,10 @@ public class ClientGUI extends JFrame implements ActionListener {
 		// ok it is coming from the JTextField
 		if(connected) {
 			// just have to send the message
-			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, tf.getText()));				
+			String mes = tf.getText();
+			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, mes));				
 			tf.setText("");
+			
 			return;
 		}
 		
@@ -199,10 +199,8 @@ public class ClientGUI extends JFrame implements ActionListener {
 		if(o == login) {
 	
 			String username = tf.getText().trim();
-		
 			if(username.length() == 0)
 				return;
-	
 			String server = tfServer.getText().trim();
 			if(server.length() == 0)
 				return;
@@ -241,7 +239,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 		}
 
 	}
-
+	
 	// to start the whole thing the server
 	public static void main(String[] args) {
 		new ClientGUI("localhost", 1500);

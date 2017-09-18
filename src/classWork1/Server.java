@@ -20,6 +20,8 @@ public class Server {
 	private int port;
 	// the boolean that will be turned of to stop the server
 	private boolean keepGoing;
+	//chat.txt
+		private static final String FILENAME = "C:\\Users\\the_r\\Desktop\\chat2.txt";
 	
 
 	/*
@@ -124,6 +126,7 @@ public class Server {
 			System.out.print(messageLf);
 		else
 			sg.appendRoom(messageLf);     // append in the room window
+		Append (time+" "+message );
 		
 		// we loop in reverse order in case we would have to remove a Client
 		// because it has disconnected
@@ -137,6 +140,50 @@ public class Server {
 		}
 	}
 
+	static void Append (String content){
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+
+			
+
+			File file = new File(FILENAME);
+
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			// true = append file
+			fw = new FileWriter(file.getAbsoluteFile(), true);
+			bw = new BufferedWriter(fw);
+
+			bw.write("\r\n"+content);
+
+
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+		}
+	}
 	// for a client who logoff using the LOGOUT message
 	synchronized void remove(int id) {
 		// scan the array list until we found the Id
