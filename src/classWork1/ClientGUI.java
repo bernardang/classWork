@@ -1,10 +1,17 @@
 package classWork1;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 /*
@@ -31,7 +38,12 @@ public class ClientGUI extends JFrame implements ActionListener {
 	private int defaultPort;
 	private String defaultHost;
 	
+	BufferedImage salida;
+	ObjectInputStream entrada;
 
+	//FileChooser 
+	JFileChooser fc = new JFileChooser();
+	
 	
 	
 
@@ -148,7 +160,26 @@ public class ClientGUI extends JFrame implements ActionListener {
 		}
 		
 		if(o == picture){
-			FileChoose fil = new FileChoose();
+			fc.setCurrentDirectory(new File("c:\\temp"));
+			  FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				        "JPG & GIF Images", "jpg", "gif");
+				    fc.setFileFilter(filter);
+			int returnValue = fc.showOpenDialog(null);
+			if (returnValue == JFileChooser.APPROVE_OPTION){
+				try{
+					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+					salida = ImageIO.read(fc.getSelectedFile());
+					ObjectOutputStream out = new ObjectOutputStream(outStream);
+					out.writeObject(salida);
+				}catch(IOException ioe){
+					
+				}
+			}
+			else{
+				
+			}
+			client.sendMessage(new ChatMessage(ChatMessage.IMAGE,tf.getText()));
+			tf.setText("");
 		}
 
 		// ok it is coming from the JTextField
@@ -161,16 +192,16 @@ public class ClientGUI extends JFrame implements ActionListener {
 		
 
 		if(o == login) {
-			// ok it is a connection request
+	
 			String username = tf.getText().trim();
-			// empty username ignore it
+		
 			if(username.length() == 0)
 				return;
-			// empty serverAddress ignore it
+	
 			String server = tfServer.getText().trim();
 			if(server.length() == 0)
 				return;
-			// empty or invalid port numer, ignore it
+			
 			String portNumber = tfPort.getText().trim();
 			if(portNumber.length() == 0)
 				return;
