@@ -171,17 +171,13 @@ public class Client  {
 
 	/*
 
-	 * To send a message to the console or the GUI
+	 * To send a message to  the GUI
 
 	 */
 
 	private void display(String msg) {
 
-		if(cg == null)
-
-			System.out.println(msg);      // println in console mode
-
-		else
+		
 
 			cg.append(msg + "\n");      // append to the ClientGUI JTextArea (or whatever)
 
