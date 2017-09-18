@@ -24,7 +24,7 @@ public class Client  {
 
 
 
-	// if I use a GUI or not
+	
 
 	private ClientGUI cg;
 
@@ -57,13 +57,7 @@ public class Client  {
 	}
 
 
-	/*
-
-	 * Constructor call when used from a GUI
-
-	 * in console mode the ClienGUI parameter is null
-
-	 */
+	
 
 	Client(String server, int port, String username, ClientGUI cg) {
 
@@ -74,7 +68,7 @@ public class Client  {
 
 		this.username = username;
 
-		// save if we are in GUI mode or not
+		
 
 		this.cg = cg;
 
@@ -206,6 +200,27 @@ public class Client  {
 
 	}
 
+	/*
+
+	 * To send an image to the server
+	 */
+
+	void sendImage(ImageMessage img) {
+
+		try {
+
+			sOutput.writeObject(img);
+
+		}
+
+		catch(IOException e) {
+
+			display("Exception writing to server: " + e);
+
+		}
+
+	}
+
 
 
 	/*
@@ -268,7 +283,7 @@ public class Client  {
 
 					String msg = (String) sInput.readObject();
 
-					// if console mode print the message and add back the prompt
+		
 
 					if(cg == null) {
 

@@ -38,7 +38,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 	private int defaultPort;
 	private String defaultHost;
 	
-	BufferedImage salida;
+	File salida;
 	ObjectInputStream entrada;
 
 	//FileChooser 
@@ -158,19 +158,20 @@ public class ClientGUI extends JFrame implements ActionListener {
 			client.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));				
 			return;
 		}
-		
+		//if it is the Picture button
 		if(o == picture){
+			//filters folder and file type
 			fc.setCurrentDirectory(new File("c:\\temp"));
 			  FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				        "JPG & GIF Images", "jpg", "gif");
+				        "JPG,PNG & GIF Images", "jpg", "png ","gif");
 				    fc.setFileFilter(filter);
 			int returnValue = fc.showOpenDialog(null);
 			if (returnValue == JFileChooser.APPROVE_OPTION){
 				try{
 					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-					salida = ImageIO.read(fc.getSelectedFile());
-					ObjectOutputStream out = new ObjectOutputStream(outStream);
-					out.writeObject(salida);
+					salida = fc.getSelectedFile();
+					ImageIcon img = new ImageIcon(ImageIO.read(salida));
+					
 				}catch(IOException ioe){
 					
 				}
@@ -178,8 +179,12 @@ public class ClientGUI extends JFrame implements ActionListener {
 			else{
 				
 			}
-			client.sendMessage(new ChatMessage(ChatMessage.IMAGE,tf.getText()));
+			
+			//client.sendImage(new ImageMessage(ImageMessage.IMAGE,img));
+			//Sending the name of the image
+			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE,salida.getName()));
 			tf.setText("");
+			return;
 		}
 
 		// ok it is coming from the JTextField
