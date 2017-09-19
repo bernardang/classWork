@@ -32,17 +32,17 @@ public class ClientGUI extends JFrame implements ActionListener {
 	private int defaultPort;
 	private String defaultHost;
 	private  String User;
-	
+
 	File salida;
 	ObjectInputStream entrada;
 
 	//FileChooser 
 	JFileChooser fc = new JFileChooser();
 	//chat.txt
-	
-	
-	
-	
+
+
+
+
 
 	// Constructor connection receiving a socket number
 	ClientGUI(String host, int port) {
@@ -51,11 +51,11 @@ public class ClientGUI extends JFrame implements ActionListener {
 		defaultPort = port;
 		defaultHost = host;
 		JFileChooser fc = new JFileChooser();
-	fc.setCurrentDirectory(new File("c:\\temp"));
-	  FileNameExtensionFilter filter = new FileNameExtensionFilter(
-		        "JPG & GIF Images", "jpg", "gif");
-		    fc.setFileFilter(filter);
-		  
+		fc.setCurrentDirectory(new File("c:\\temp"));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"JPG & GIF Images", "jpg", "gif");
+		fc.setFileFilter(filter);
+
 		// The NorthPanel with:
 		JPanel northPanel = new JPanel(new GridLayout(3,1));
 		// the server name and the port number
@@ -145,10 +145,10 @@ public class ClientGUI extends JFrame implements ActionListener {
 		tf.removeActionListener(this);
 		connected = false;
 	}
-		
+
 	/*
-	* Button or JTextField clicked
-	*/
+	 * Button or JTextField clicked
+	 */
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		// if it is the Logout button
@@ -165,24 +165,24 @@ public class ClientGUI extends JFrame implements ActionListener {
 		if(o == picture){
 			//filters folder and file type
 			fc.setCurrentDirectory(new File("c:\\temp"));
-			  FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				        "JPG,PNG & GIF Images", "jpg", "png ","gif");
-				    fc.setFileFilter(filter);
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					"JPG,PNG & GIF Images", "jpg", "png ","gif");
+			fc.setFileFilter(filter);
 			int returnValue = fc.showOpenDialog(null);
 			if (returnValue == JFileChooser.APPROVE_OPTION){
 				try{
 					ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 					salida = fc.getSelectedFile();
 					ImageIcon img = new ImageIcon(ImageIO.read(salida));
-					
+
 				}catch(IOException ioe){
-					
+
 				}
 			}
 			else{
-				
+
 			}
-			
+
 			//client.sendImage(new ImageMessage(ImageMessage.IMAGE,img));
 			//Sending the name of the image
 			String ime = salida.getName();
@@ -197,23 +197,23 @@ public class ClientGUI extends JFrame implements ActionListener {
 			String mes = tf.getText();
 			client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, mes));				
 			tf.setText("");
-			
+
 			return;
 		}
-		
+
 
 		if(o == login) {
-	
+
 			String username = tf.getText().trim();
 			if(username.length() == 0){
 				return;
 			}
 			User = username;
-				
+
 			String server = tfServer.getText().trim();
 			if(server.length() == 0)
 				return;
-			
+
 			String portNumber = tfPort.getText().trim();
 			if(portNumber.length() == 0)
 				return;
@@ -233,7 +233,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 			tf.setText("");
 			label.setText("Enter your message below");
 			connected = true;
-			
+
 			// disable login button
 			login.setEnabled(false);
 			// enable the 2 buttons
@@ -248,7 +248,7 @@ public class ClientGUI extends JFrame implements ActionListener {
 		}
 
 	}
-	
+
 	// to start the whole thing the server
 	public static void main(String[] args) {
 		new ClientGUI("localhost", 1500);

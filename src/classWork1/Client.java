@@ -24,7 +24,7 @@ public class Client  {
 
 
 
-	
+
 
 	private ClientGUI cg;
 
@@ -38,38 +38,24 @@ public class Client  {
 
 
 	/*
-
-
 	 *  server: the server address
-
 	 *  port: the port number
-
 	 *  username: the username
-
 	 */
 
 	Client(String server, int port, String username) {
-
 		// which calls the common constructor with the GUI set to null
-
 		this(server, port, username, null);
-
 	}
 
 
-	
+
 
 	Client(String server, int port, String username, ClientGUI cg) {
 
-
 		this.server = server;
-
 		this.port = port;
-
 		this.username = username;
-
-		
-
 		this.cg = cg;
 
 	}
@@ -171,13 +157,8 @@ public class Client  {
 
 	private void display(String msg) {
 
-		
-
-			cg.append(msg + "\n");      // append to the ClientGUI JTextArea (or whatever)
-
+		cg.append(msg + "\n");      // append to the ClientGUI JTextArea (or whatever)
 	}
-
-
 
 	/*
 
@@ -259,31 +240,20 @@ public class Client  {
 
 
 		// inform the GUI
-
 		if(cg != null)
-
 			cg.connectionFailed();
-
-
 
 	}
 
-
-
-
-
 	class ListenFromServer extends Thread {
 
-
 		public void run() {
-
 			while(true) {
-
 				try {
 
 					String msg = (String) sInput.readObject();
 
-		
+
 
 					if(cg == null) {
 

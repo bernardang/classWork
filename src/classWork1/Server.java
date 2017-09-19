@@ -21,10 +21,10 @@ public class Server {
 	// the boolean that will be turned of to stop the server
 	private boolean keepGoing;
 	//chat.txt
-		private static final String FILENAME = "C:\\Users\\the_r\\Desktop\\chat2.txt";
+	private static final String FILENAME = "C:\\Users\\the_r\\Desktop\\chat2.txt";
 	//messagecount
-		private int mcount;
-	
+	private int mcount;
+
 
 	/*
 	 *  server constructor that receive the port to listen to for connection as parameter
@@ -33,7 +33,7 @@ public class Server {
 	public Server(int port) {
 		this(port, null);
 	}
-	
+
 	public Server(int port, ServerGUI sg) {
 		// GUI or not
 		this.sg = sg;
@@ -44,7 +44,7 @@ public class Server {
 		// ArrayList for the Client list
 		al = new ArrayList<ClientThread>();
 	}
-	
+
 	public void start() {
 		keepGoing = true;
 		/* create socket server and wait for connection requests */
@@ -58,7 +58,7 @@ public class Server {
 			{
 				// format message saying we are waiting
 				display("Server waiting for Clients on port " + port + ".");
-				
+
 				Socket socket = serverSocket.accept();  	// accept connection
 				// if I was asked to stop
 				if(!keepGoing)
@@ -73,9 +73,9 @@ public class Server {
 				for(int i = 0; i < al.size(); ++i) {
 					ClientThread tc = al.get(i);
 					try {
-					tc.sInput.close();
-					tc.sOutput.close();
-					tc.socket.close();
+						tc.sInput.close();
+						tc.sOutput.close();
+						tc.socket.close();
 					}
 					catch(IOException ioE) {
 						// not much I can do
@@ -88,13 +88,13 @@ public class Server {
 		}
 		// something went bad
 		catch (IOException e) {
-            String msg = sdf.format(new Date()) + " Exception on new ServerSocket: " + e + "\n";
+			String msg = sdf.format(new Date()) + " Exception on new ServerSocket: " + e + "\n";
 			display(msg);
 		}
 	}		
-    /*
-     * For the GUI to stop the server
-     */
+	/*
+	 * For the GUI to stop the server
+	 */
 	protected void stop() {
 		keepGoing = false;
 		// connect to myself as Client to exit statement 
@@ -131,9 +131,9 @@ public class Server {
 		//Append message to the chat history
 		mcount++;
 		Append ("("+mcount+")"+time+" "+message );
-		
-		
-	
+
+
+
 		for(int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the list
@@ -150,7 +150,7 @@ public class Server {
 
 		try {
 
-			
+
 
 			File file = new File(FILENAME);
 
@@ -200,7 +200,7 @@ public class Server {
 			}
 		}
 	}
-	
+
 
 
 	/** One instance of this thread will run for each client */
@@ -242,7 +242,7 @@ public class Server {
 			// but I read a String, I am sure it will work
 			catch (ClassNotFoundException e) {
 			}
-            date = new Date().toString() + "\n";
+			date = new Date().toString() + "\n";
 		}
 
 		// what will run forever
@@ -289,7 +289,7 @@ public class Server {
 			remove(id);
 			close();
 		}
-		
+
 		// try to close everything
 		private void close() {
 			// try to close the connection

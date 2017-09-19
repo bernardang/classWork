@@ -7,54 +7,54 @@ import java.io.*;
 
 public class ChatMessage implements Serializable {
 
- 
 
-    protected static final long serialVersionUID = 1112122200L;
 
- 
+	protected static final long serialVersionUID = 1112122200L;
 
-    // The different types of message sent by the Client
 
-    // WHOISIN to receive the list of the users connected
 
-    // MESSAGE an ordinary message
+	// The different types of message sent by the Client
 
-    // LOGOUT to disconnect from the Server
-    
-    // IMAGE to send image
+	// WHOISIN to receive the list of the users connected
 
-    static final int WHOISIN = 0, MESSAGE = 1, LOGOUT = 2 ,IMAGE= 3;
+	// MESSAGE an ordinary message
 
-    private int type;
+	// LOGOUT to disconnect from the Server
 
-    private String message;
+	// IMAGE to send image
 
-     
+	static final int WHOISIN = 0, MESSAGE = 1, LOGOUT = 2 ,IMAGE= 3;
 
-    // constructor
+	private int type;
 
-    ChatMessage(int type, String message) {
+	private String message;
 
-        this.type = type;
 
-        this.message = message;
 
-    }
+	// constructor
 
-     
+	ChatMessage(int type, String message) {
 
-    // getters
+		this.type = type;
 
-  int getType() {
+		this.message = message;
 
-        return type;
+	}
 
-    }
 
-    String getMessage() {
 
-        return message;
+	// getters
 
-    }
+	int getType() {
+
+		return type;
+
+	}
+
+	String getMessage() {
+
+		return message;
+
+	}
 
 }
