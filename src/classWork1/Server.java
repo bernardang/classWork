@@ -21,7 +21,7 @@ public class Server {
 	// the boolean that will be turned of to stop the server
 	private boolean keepGoing;
 	//chat.txt
-	private static final String FILENAME = "C:\\Users\\the_r\\Desktop\\chat2.txt";
+	private static final String FILENAME = "chat2.txt";
 	//messagecount
 	private int mcount;
 
